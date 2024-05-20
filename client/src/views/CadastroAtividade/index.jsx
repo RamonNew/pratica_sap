@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 function CadastradoAtividade() {
@@ -11,12 +11,12 @@ function CadastradoAtividade() {
     useEffect(() => {
         document.title = "Cadastro Turma"
         setId_professor(localStorage.getItem("id"))
-        
+
         if (!localStorage.getItem("id")) {
             window.location.replace("../");
             alert("Efetue login")
-          }
-      }, [])
+        }
+    }, [])
 
     //Função que será chamada ao enviar o formulário
     async function cadastrarAtividade(event) {
@@ -45,7 +45,7 @@ function CadastradoAtividade() {
             } else {
                 alert('Atividade Cadastrada')
                 console.debug("Turma Cadastrada")
-                window.location.href = '/visualizarTurma/'+id_turma
+                window.location.href = '/visualizarTurma/' + id_turma
             }
 
         } catch (error) {
@@ -53,15 +53,20 @@ function CadastradoAtividade() {
         }
     }
 
-    
+
     return (
-        <div>
-            <h1><a href="/principal">Voltar</a></h1>
+        <div className="container col-3 pt-5 justify-content-center">
             <h1>Cadastro Atividade</h1>
             <form onSubmit={cadastrarAtividade}>
-                <label>Descrição:</label>
-                <input type="text" value={descricao} onChange={e => setDescricao(e.target.value)} />
-                <button type='submit'>Cadastrar</button>
+                <input
+                    type="text"
+                    value={descricao}
+                    onChange={e => setDescricao(e.target.value)}
+                    placeholder='Descrição'
+                    class="form-control"
+                />
+                <a className='mt-2 btn btn-danger float-start' href={`/visualizarTurma/${id_turma}`}>Cancelar</a>
+                <button className='mt-2 btn btn-primary float-end' type='submit'>Cadastrar</button>
             </form>
         </div>
     )

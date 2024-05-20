@@ -58,30 +58,33 @@ function Principal() {
 
   async function deletarTurma(id) {
     if (window.confirm("Tem certeza que deseja deletar essa turma?")) {
-        try {
-            const resposta = await fetch('/turma/' + id, {
-                method: 'DELETE',
-            })
-            if (!resposta.ok) {
-                throw new Error("Falha ao deletar turma")
-            } else {//else não obrigatório
-              listarTurmas()
-            }
-
-        } catch (error) {
-            console.error("Erro ao deletar turma:", error)
+      try {
+        const resposta = await fetch('/turma/' + id, {
+          method: 'DELETE',
+        })
+        if (!resposta.ok) {
+          throw new Error("Falha ao deletar turma")
+        } else {//else não obrigatório
+          listarTurmas()
         }
+
+      } catch (error) {
+        console.error("Erro ao deletar turma:", error)
+      }
     }
-}
+  }
 
   return (
-    <div>
-      <div className='menu'>{nome}</div>
-      <button onClick={logout}>Logout</button>
+    <div className='container'>
+      <div className='bg-primary py-2 px-5 text-end'>
+        <span className='text-white float-start fs-4'>Usuário | {nome}</span>
+        <button className='btn btn-warning' onClick={logout}>Logout</button>
+      </div>
 
-      <h1><a href="./cadastroTurma">Cadastrar Turma</a></h1>
+
+      <div className='mt-4 text-end'><a className='btn btn-primary' href="./cadastroTurma">Cadastrar Turma</a></div>
       <div className='turmas'>
-        <table>
+        <table className='table table-striped'>
           <thead>
             <tr>
               <th>Número</th>
@@ -89,16 +92,18 @@ function Principal() {
               <th>Ação</th>
             </tr>
           </thead>
-          {turmas.map(turma => (
-            <tr key={turma.id}>
-              <td>{turma.id}</td>
-              <td>{turma.nome}</td>
-              <td>
-                <button onClick={() => deletarTurma(turma.id)}>Excluir</button>
-                <a href={`/visualizarTurma/${turma.id}`}>Vizualizar</a>
-              </td>
-            </tr>
-          ))}
+          <tbody>
+            {turmas.map(turma => (
+              <tr key={turma.id}>
+                <td>{turma.id}</td>
+                <td>{turma.nome}</td>
+                <td>
+                  <button className='btn bg-danger text-white me-2' onClick={() => deletarTurma(turma.id)}>Excluir</button>
+                  <a className='btn btn-success bg-success text-white' href={`/visualizarTurma/${turma.id}`}>Vizualizar</a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </div>

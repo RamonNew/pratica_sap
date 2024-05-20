@@ -31,7 +31,7 @@ class Turma {
         })
     }
 
-    inserindoTurma(nome,id_professor) {
+    inserindoTurma(nome, id_professor) {
         let sql = `INSERT INTO turmas (nome,id_professor) VALUE ("${nome}","${id_professor}")`
 
         return new Promise((resolve, reject) => {
@@ -44,7 +44,7 @@ class Turma {
         })
     }
 
-    atualizandoTurma(id, nome,id_professor) {
+    atualizandoTurma(id, nome, id_professor) {
         let sql = `UPDATE turmas SET nome="${nome}",id_professor="${id_professor}" WHERE id="${id}"`
 
         return new Promise((resolve, reject) => {
@@ -64,18 +64,19 @@ class Turma {
             this.conexao.query(sql, function (erro, retorno) {
                 if (erro) {
                     reject([400, erro])
-                }
-                if (retorno["affectedRows"]>0) {
-                    resolve([202, retorno])
                 } else {
-                    resolve([404, retorno])
+                    if (retorno["affectedRows"] > 0) {
+                        resolve([202, retorno])
+                    } else {
+                        resolve([404, retorno])
+                    }
                 }
 
             })
         })
     }
 
-    mostrandoUmaTurma(id){
+    mostrandoUmaTurma(id) {
         let sql = `SELECT * FROM turmas WHERE id="${id}"`
 
         return new Promise((resolve, reject) => {
@@ -83,14 +84,14 @@ class Turma {
                 if (erro) {
                     reject([400, erro])
                 }
-                if (retorno.length>0) {
+                if (retorno.length > 0) {
                     resolve([200, retorno[0]])
                 } else {
                     resolve([404, retorno])
                 }
 
             })
-        })    
+        })
     }
 }
 

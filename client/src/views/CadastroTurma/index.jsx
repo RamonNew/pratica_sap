@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 
 function CadastradoTurma() {
     //Definindo os estados para cada campo do formulário
@@ -8,12 +8,12 @@ function CadastradoTurma() {
     useEffect(() => {
         document.title = "Cadastro Turma"
         setId_professor(localStorage.getItem("id"))
-        
+
         if (!localStorage.getItem("id")) {
             window.location.replace("./");
             alert("Efetue login")
-          }
-      }, [])
+        }
+    }, [])
 
     //Função que será chamada ao enviar o formulário
     async function cadastrarUsuario(event) {
@@ -50,15 +50,20 @@ function CadastradoTurma() {
         }
     }
 
-    
+
     return (
-        <div>
-            <h1><a href="/principal">Voltar</a></h1>
+        <div className="container col-3 pt-5 justify-content-center">
             <h1>Cadastro Turma</h1>
             <form onSubmit={cadastrarUsuario}>
-                <label>Nome:</label>
-                <input type="text" value={nome} onChange={e => setNome(e.target.value)} />
-                <button type='submit'>Cadastrar</button>
+                <input
+                    type="text"
+                    value={nome}
+                    onChange={e => setNome(e.target.value)}
+                    placeholder='Nome Turma'
+                    class="form-control"
+                />
+                <a className='mt-2 btn btn-danger float-start' href="/principal">Cancelar</a>
+                <button className='mt-2 btn btn-primary float-end' type='submit'>Cadastrar</button>
             </form>
         </div>
     )

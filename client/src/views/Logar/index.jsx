@@ -1,50 +1,54 @@
 import { useState, useEffect } from 'react'
+import styles from './Logar.module.css'
 
 function Logar() {
-    const [email,setEmail] = useState('')
-    const [senha,setSenha] = useState('')
+    const [email, setEmail] = useState('')
+    const [senha, setSenha] = useState('')
 
-    useEffect(()=>{
-        document.title = "Tela Login"    
+    useEffect(() => {
+        document.title = "Tela Login"
     })
 
-    async function efetuarLogin(){
+    async function efetuarLogin() {
         try {
-            const resposta = await fetch("/logar",{
+            const resposta = await fetch("/logar", {
                 method: "POST",
-                headers:{
-                    'Content-Type':'application/json'
+                headers: {
+                    'Content-Type': 'application/json'
                 },
-                body:JSON.stringify({email,senha})
+                body: JSON.stringify({ email, senha })
             })
-            if(!resposta.ok){
+            if (!resposta.ok) {
                 alert("Usuário ou senha inválidos")
                 throw new Error("Erro na requisição:" + resposta.status)
             }
 
             const dados = await resposta.json()
-            localStorage.setItem('id',dados.id)
+            localStorage.setItem('id', dados.id)
             window.location.href = "/principal"
         } catch (error) {
-            console.error("Error ao fazer login",error)
+            console.error("Error ao fazer login", error)
         }
     }
 
     return (
-        <div>
-            <h1>Bem vindo</h1>
-            <label htmlFor="">email</label>
-            <input type="text"
-            value={email}
-            onChange={(e)=>setEmail(e.target.value)}
-            />
-            <label htmlFor="">senha</label>
-            <input type="text" 
-            value={senha}
-            onChange={(e)=>setSenha(e.target.value)}
-            />
-
-            <button onClick={efetuarLogin}>Logar</button>
+        <div className=" container col-3 pt-5 justify-content-center">
+            <div className='text-align-center'>
+                <h1 className='text-center'>Bem vindo</h1>
+                <input type="text"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder='email'
+                    class="form-control"
+                />
+                <input type="password"
+                    value={senha}
+                    onChange={(e) => setSenha(e.target.value)}
+                    placeholder='senha'
+                    class="form-control"
+                />
+                <button className='mt-2 btn btn-primary float-end' onClick={efetuarLogin}>Logar</button>
+            </div>
         </div>
     )
 }
