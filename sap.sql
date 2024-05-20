@@ -30,8 +30,8 @@ CREATE TABLE `atividades` (
   `id_turma` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_turma_atividade` (`id_turma`),
-  CONSTRAINT `fk_turma_atividade` FOREIGN KEY (`id_turma`) REFERENCES `turmas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `fk_turma_atividade` FOREIGN KEY (`id_turma`) REFERENCES `turmas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `atividades` (
 
 LOCK TABLES `atividades` WRITE;
 /*!40000 ALTER TABLE `atividades` DISABLE KEYS */;
-INSERT INTO `atividades` VALUES (1,'Atividade 1',1),(3,'html avançado',1),(5,'css avaançado',1),(6,'javascript',1),(7,'Noções informática',1),(8,'Word',4),(9,'Excel',8),(10,'diagramação',7);
+INSERT INTO `atividades` VALUES (1,'Atividade 1',1),(3,'html avançado',1),(5,'css avaançado',1),(6,'javascript',1),(7,'Noções informática',1),(9,'Excel',8),(10,'diagramação',7);
 /*!40000 ALTER TABLE `atividades` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,7 +84,7 @@ CREATE TABLE `turmas` (
   PRIMARY KEY (`id`),
   KEY `fk_professor` (`id_professor`),
   CONSTRAINT `fk_professor` FOREIGN KEY (`id_professor`) REFERENCES `professores` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +93,7 @@ CREATE TABLE `turmas` (
 
 LOCK TABLES `turmas` WRITE;
 /*!40000 ALTER TABLE `turmas` DISABLE KEYS */;
-INSERT INTO `turmas` VALUES (1,'HTC DDS NOTURNO',8),(4,'DDS - 14',8),(5,'DDS - 21',8),(6,'Web - 21',1),(7,'Turma Web Prefeitura',1),(8,'Turma Desktop',1);
+INSERT INTO `turmas` VALUES (1,'HTC DDS NOTURNO',8),(6,'Web - 21',1),(7,'Turma Web Prefeitura',1),(8,'Turma Desktop',1);
 /*!40000 ALTER TABLE `turmas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -106,4 +106,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-19 22:53:11
+-- Dump completed on 2024-05-20  0:47:14
