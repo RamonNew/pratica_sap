@@ -1,10 +1,9 @@
-const config = {
-    db:{
-        host:"localhost",
-        user:"root",
-        password:"",
-        database:"saep_db"
-    }
+const db = {
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "saep_db"
 }
 
-module.exports = config
+
+export default db;

@@ -1,4 +1,4 @@
-const Turma = require("../models/Turma")
+import Turma from "../models/Turma.js";
 
 class TurmaController{
     index(req,res){
@@ -94,4 +94,4 @@ class TurmaController{
     }
 }
 
-module.exports = new TurmaController()
+export default new TurmaController()

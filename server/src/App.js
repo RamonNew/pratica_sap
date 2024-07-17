@@ -1,9 +1,10 @@
-const express = require('express')
+import express from 'express';
 const app = express()
 const port = 5000
-const ProfessorController = require("./controllers/ProfessorController")
-const TurmaController =require("./controllers/TurmaController")
-const AtividadeController = require("./controllers/AtividadeController")
+
+import ProfessorController from './controllers/ProfessorController.js';
+import TurmaController from './controllers/TurmaController.js';
+import AtividadeController from './controllers/AtividadeController.js';
 
 // For parsing application/json
 app.use(express.json());
@@ -18,7 +19,7 @@ app.listen(port, () => {
 
 
 //validando login turma
-app.post("/logar",ProfessorController.logar)
+app.post("/logar",ProfessorController.validar)
 
 //CRUD Professor
 app.get("/professor",ProfessorController.index)

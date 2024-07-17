@@ -1,8 +1,9 @@
-const mysql = require("mysql2")
-const dbConfig = require("../config")
+import mysql from 'mysql2';
+import db from '../config.js';
+
 class Atividade {
     constructor() {
-        this.conexao = mysql.createConnection(dbConfig.db)
+        this.conexao = mysql.createConnection(db)
     }
 
     mostrarAtividades() {
@@ -94,4 +95,4 @@ class Atividade {
     }
 }
 
-module.exports = new Atividade()
+export default new Atividade()

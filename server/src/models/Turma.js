@@ -1,8 +1,9 @@
-const mysql = require("mysql2")
-const dbConfig = require("../config")
+import mysql from 'mysql2';
+import db from '../config.js';
+
 class Turma {
     constructor() {
-        this.conexao = mysql.createConnection(dbConfig.db)
+        this.conexao = mysql.createConnection(db)
     }
 
     mostrarTurmas() {
@@ -95,4 +96,4 @@ class Turma {
     }
 }
 
-module.exports = new Turma()
+export default new Turma()

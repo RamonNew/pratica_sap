@@ -1,99 +1,40 @@
-const Professor = require("../models/Professor")
+import Professor from "../models/ProfessorModel.js";
 
-class ProfessorController{
-    index(req,res){
-        Professor.mostrarProfessores().then(
-            resposta=>{
-                console.debug("Mostrando Usuários")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        ).catch(
-            resposta=>{
-                console.debug("ERRO ao mostrar Usuários")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        )
+class ProfessorController {
+    async index(req, res) {
+        const [status, data] = await Professor.mostrarProfessores();
+        res.status(status).json(data);
     }
 
-    create(req,res){
-        let nome = req.body.nome
-        let email = req.body.email
-        let senha = req.body.senha
-        Professor.inserindoProfessor(nome,email,senha).then(
-            resposta=>{
-                console.debug("Mostrando Usuários")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        ).catch(
-            resposta=>{
-                console.debug("Mostrando Usuários")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        )
+    async create(req, res) {
+        const { nome, email, senha } = req.body;
+        const [status, data] = await Professor.inserindoProfessor(nome, email, senha);
+        res.status(status).json(data);
     }
 
-    update(req, res){
-        let id = req.params.id
-        let nome = req.body.nome
-        let email = req.body.email
-        let senha = req.body.senha
-        Professor.atualizandoProfessor(id,nome,email,senha).then(
-            resposta=>{
-                console.debug("Atualizando Usuários")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        ).catch(
-            resposta=>{
-                console.debug("Erro Atualizando Usuários")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        )
+    async update(req, res) {
+        const { id } = req.params;
+        const { nome, email, senha } = req.body;
+        const [status, data] = await Professor.atualizandoProfessor(id, nome, email, senha);
+        res.status(status).json(data);
     }
 
-    destroy(req, res){
-        let id = req.params.id
-        Professor.deletandoProfessor(id).then(
-            resposta=>{
-                console.debug("Deletando Professor")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        ).catch(
-            resposta=>{
-                console.debug("Erro Deletando Professor")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        )
+    async destroy(req, res) {
+        const { id } = req.params;
+        const [status, data] = await Professor.deletandoProfessor(id);
+        res.status(status).json(data);
     }
 
-    mostrarProfessor(req,res){
-        let id = req.params.id
-        Professor.mostrandoUmProfessor(id).then(
-            resposta=>{
-                console.debug("Mostrando um Professor")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        ).catch(
-            resposta=>{
-                console.debug("Mostrando um Professor")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        )    
+    async mostrarProfessor(req, res) {
+        const { id } = req.params;
+        const [status, data] = await Professor.mostrandoUmProfessor(id);
+        res.status(status).json(data);
     }
-    logar(req,res){
-        let email = req.body.email
-        let senha = req.body.senha
-        Professor.validarEmailSenha(email,senha).then(
-            resposta=>{
-                console.debug("Efetuando Login")
-                res.status(resposta[0]).json(resposta[1][0])
-            }
-        ).catch(
-            resposta=>{
-                console.debug("Erro Efetuando Login")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        )
+    async validar(req, res) {
+        const { email, senha } = req.body;
+        const [status, data] = await Professor.validarEmailSenha(email, senha);
+        res.status(status).json(data);
     }
 }
 
-module.exports = new ProfessorController()
+export default new ProfessorController();

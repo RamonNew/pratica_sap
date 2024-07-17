@@ -1,5 +1,4 @@
-const Atividade = require("../models/Atividade")
-
+import Atividade from '../models/Atividade.js';
 class AtividadeController{
     index(req,res){
         Atividade.mostrarAtividades().then(
@@ -94,4 +93,4 @@ class AtividadeController{
     }
 }
 
-module.exports = new AtividadeController()
+export default new AtividadeController()
