@@ -1,7 +1,7 @@
 import mysql from 'mysql2/promise';
 import db from '../config.js';
 
-class Professor {
+class ProfessorModel {
     constructor() {
         this.conexao = mysql.createPool(db);
     }
@@ -22,9 +22,10 @@ class Professor {
         let sql = 'INSERT INTO professores (nome, email, senha) VALUES (?, ?, ?)';
         try {
             const [retorno] = await this.conexao.query(sql, [nome, email, senha]);
-            return [201, retorno];
-        } catch (erro) {
-            return [400, erro];
+            return [201, 'Professor Inserido'];
+        } catch (error) {
+            console.debug(error);
+            return [400, error];
         }
     }
 
@@ -33,8 +34,8 @@ class Professor {
         try {
             const [retorno] = await this.conexao.query(sql, [nome, email, senha, id]);
             return [202, retorno];
-        } catch (erro) {
-            return [400, erro];
+        } catch (error) {
+            return [400, error];
         }
     }
 
@@ -47,8 +48,8 @@ class Professor {
             } else {
                 return [404, retorno];
             }
-        } catch (erro) {
-            return [400, erro];
+        } catch (error) {
+            return [400, error];
         }
     }
 
@@ -61,8 +62,8 @@ class Professor {
             } else {
                 return [404, retorno];
             }
-        } catch (erro) {
-            return [400, erro];
+        } catch (error) {
+            return [400, error];
         }
     }
     async validarEmailSenha(email, senha) {
@@ -74,10 +75,10 @@ class Professor {
             } else {
                 return [404, retorno];
             }
-        } catch (erro) {
-            return [400, erro];
+        } catch (error) {
+            return [400, error];
         }
     }
 }
 
-export default new Professor()
+export default new ProfessorModel();

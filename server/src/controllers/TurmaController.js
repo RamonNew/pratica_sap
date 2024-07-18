@@ -1,97 +1,47 @@
-import Turma from "../models/Turma.js";
+import TurmaModel from "../models/TurmaModel.js";
 
-class TurmaController{
-    index(req,res){
-        Turma.mostrarTurmas().then(
-            resposta=>{
-                console.debug("Mostrando Turmas")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        ).catch(
-            resposta=>{
-                console.debug("ERRO ao mostrar Turmas")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        )
+class TurmaController {
+    async index(req, res) {
+        const [status, data] = await TurmaModel.mostrarTurmas();
+        console.debug("Mostrando Turmas");
+        res.status(status).json(data);
     }
 
-    create(req,res){
-        let nome = req.body.nome
-        let id_professor = req.body.id_professor
-        Turma.inserindoTurma(nome,id_professor).then(
-            resposta=>{
-                console.debug("Inserindo Turma")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        ).catch(
-            resposta=>{
-                console.debug("Erro Inserindo Turma")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        )
+    async create(req, res) {
+        const { nome, id_professor } = req.body;
+        const [status, data] = await TurmaModel.inserindoTurma(nome, id_professor);
+        console.debug("Inserindo Turma");
+        res.status(status).json(data);
     }
 
-    update(req, res){
-        let id = req.params.id
-        let nome = req.body.nome
-        let id_professor = req.body.id_professor
-        Turma.atualizandoTurma(id,nome,id_professor).then(
-            resposta=>{
-                console.debug("Atualizando Turma")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        ).catch(
-            resposta=>{
-                console.debug("Erro Atualizando Turma")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        )
+    async update(req, res) {
+        const { id } = req.params;
+        const { nome, id_professor } = req.body;
+        const [status, data] = await TurmaModel.atualizandoTurma(id, nome, id_professor);
+        console.debug("Atualizando Turma");
+        res.status(status).json(data);
     }
 
-    destroy(req, res){
-        let id = req.params.id
-        Turma.deletandoTurma(id).then(
-            resposta=>{
-                console.debug("Deletando Professor")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        ).catch(
-            resposta=>{
-                console.debug("Erro Deletando Professor")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        )
+    async destroy(req, res) {
+        const { id } = req.params;
+        const [status, data] = await TurmaModel.deletandoTurma(id);
+        console.debug("Deletando Turma");
+        res.status(status).json(data);
     }
 
-    mostraTurma(req,res){
-        let id = req.params.id
-        Turma.mostrandoUmaTurma(id).then(
-            resposta=>{
-                console.debug("Mostrando uma Turma")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        ).catch(
-            resposta=>{
-                console.debug("Erro Mostrando uma Turma")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        )    
+    async mostraTurma(req, res) {
+        const { id } = req.params;
+        const [status, data] = await TurmaModel.mostrandoUmaTurma(id);
+        console.debug("Mostrando uma Turma");
+        res.status(status).json(data);
     }
 
-    mostrarTurmaProfessor(req,res){
-        let id_professor = req.params.id_professor
-        Turma.mostrarTurmasProfessor(id_professor).then(
-            resposta=>{
-                console.debug("Atualizando Turma Professor")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        ).catch(
-            resposta=>{
-                console.debug("Erro Atualizando Turma Professor")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        )    
+    async mostrarTurmaProfessor(req, res) {
+        const { id_professor } = req.params;
+        const [status, data] = await TurmaModel.mostrarTurmasProfessor(id_professor);
+        console.debug("Mostrando Turmas de um Professor");
+        res.status(status).json(data);
     }
 }
 
-export default new TurmaController()
+export default new TurmaController();

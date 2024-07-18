@@ -1,96 +1,47 @@
-import Atividade from '../models/Atividade.js';
-class AtividadeController{
-    index(req,res){
-        Atividade.mostrarAtividades().then(
-            resposta=>{
-                console.debug("Mostrando Atividades")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        ).catch(
-            resposta=>{
-                console.debug("ERRO ao mostrar Atividades")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        )
+import AtividadeModel from '../models/AtividadeModel.js';
+
+class AtividadeController {
+    async index(req, res) {
+        const [status, data] = await AtividadeModel.mostrarAtividades();
+        console.debug("Mostrando Atividades");
+        res.status(status).json(data);
     }
 
-    create(req,res){
-        let descricao = req.body.descricao
-        let id_turma = req.body.id_turma
-        Atividade.inserindoAtividade(descricao,id_turma).then(
-            resposta=>{
-                console.debug("Inserindo Turma")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        ).catch(
-            resposta=>{
-                console.debug("Erro Inserindo Turma")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        )
+    async create(req, res) {
+        const { descricao, id_turma } = req.body;
+        const [status, data] = await AtividadeModel.inserindoAtividade(descricao, id_turma);
+        console.debug("Inserindo Atividade");
+        res.status(status).json(data);
     }
 
-    update(req, res){
-        let id = req.params.id
-        let descricao = req.body.descricao
-        let id_professor = req.body.id_professor
-        Turma.atualizandoTurma(id,descricao,id_professor).then(
-            resposta=>{
-                console.debug("Atualizando Turma")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        ).catch(
-            resposta=>{
-                console.debug("Erro Atualizando Turma")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        )
+    async update(req, res) {
+        const { id } = req.params;
+        const { descricao, id_turma } = req.body;
+        const [status, data] = await AtividadeModel.atualizandoAtividade(id, descricao, id_turma);
+        console.debug("Atualizando Atividade");
+        res.status(status).json(data);
     }
 
-    destroy(req, res){
-        let id = req.params.id
-        Turma.deletandoTurma(id).then(
-            resposta=>{
-                console.debug("Deletando Professor")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        ).catch(
-            resposta=>{
-                console.debug("Erro Deletando Professor")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        )
+    async destroy(req, res) {
+        const { id } = req.params;
+        const [status, data] = await AtividadeModel.deletandoAtividade(id);
+        console.debug("Deletando Atividade");
+        res.status(status).json(data);
     }
 
-    mostraTurma(req,res){
-        let id = req.params.id
-        Turma.mostrandoUmaTurma(id).then(
-            resposta=>{
-                console.debug("Mostrando uma Turma")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        ).catch(
-            resposta=>{
-                console.debug("Erro Mostrando uma Turma")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        )    
+    async mostrarAtividade(req, res) {
+        const { id } = req.params;
+        const [status, data] = await AtividadeModel.mostrandoUmaAtividade(id);
+        console.debug("Mostrando uma Atividade");
+        res.status(status).json(data);
     }
 
-    mostrarAtividadeTurma(req,res){
-        let id_turma = req.params.id_turma
-        Atividade.mostrarAtividadesTurma(id_turma).then(
-            resposta=>{
-                console.debug("Mostrando Atividades Turma")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        ).catch(
-            resposta=>{
-                console.debug("Erro Mostrando Atividades Turma")
-                res.status(resposta[0]).json(resposta[1])
-            }
-        )    
+    async mostrarAtividadeTurma(req, res) {
+        const { id_turma } = req.params;
+        const [status, data] = await AtividadeModel.mostrarAtividadesTurma(id_turma);
+        console.debug("Mostrando Atividades da Turma");
+        res.status(status).json(data);
     }
 }
 
-export default new AtividadeController()
+export default new AtividadeController();
